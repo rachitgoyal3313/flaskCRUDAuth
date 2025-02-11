@@ -44,6 +44,15 @@ def load_user(user_id):
 with app.app_context():
     db.create_all()
 
+     # Check if an admin user already exists
+    if not User.query.filter_by(role="admin").first():
+        admin_user = User(name="Rachit", email="rachit@gmail.com", mobile="1234567890", role="admin")
+        admin_user.set_password("rachit")  # Set a default password
+        db.session.add(admin_user)
+        db.session.commit()
+        print("Admin user created with email: rachit@gmail.com and password: rachit")
+
+
 
 @app.route("/")
 def home():
